@@ -1,6 +1,14 @@
 # dual-led-ring-watch
 3D Printed Wall-Mounted NeoPixel LED Clock with NTP Synchronization
 
+This was originally developed by [Bastel Garage](https://github.com/bastelgarage) and is being modified by Paul Chase.
+
+Particularly, I've added a second hand to the clock, and will also be uploading STLs for a larger version based on neopixel strips.
+The larger version will use identical code, just greater spacing on the LEDs.
+My goal is to display the clock in a makerspace - so I'll also be adding numbers to the dial, so hopefully folks can read it even if
+they are unfamiliar with analog clocks.
+
+
 ## Description
 This project is a creative take on a digital clock, utilizing a circular arrangement of NeoPixel LEDs that face towards the wall, casting an ambient glow that visually represents the time. It is designed to be wall-mounted with the LED ring's connection point situated at the bottom for a cleaner appearance. The clock synchronizes with NTP servers for precise timekeeping and automatically adjusts for daylight saving time in the Central European Timezone (CET/CEST).
 
@@ -18,6 +26,10 @@ This project is a creative take on a digital clock, utilizing a circular arrange
 - 2x 60 LED NeoPixel Ring (172mm) [60 LED 172mm Ring](https://www.ebay.co.uk/itm/132996155861)
 - 5V Power Supply (adequate for powering the LED ring) [5V 2000mA USB](https://www.bastelgarage.ch/5v-2000ma-usb-netzteil-ac-dc-adapter-weiss)
 - Logic Level Shifter (if needed by the ESP8266) [Logic Level Converter 2-Kanal 5V / 3.3V](https://www.bastelgarage.ch/logic-level-converter-2-kanal-5v-3-3v)
+
+## US-based Hardware
+
+
 
 ## Software Libraries
 - `ESP8266WiFi` for WiFi functionality.
