@@ -34,7 +34,7 @@
 #define NUMPIXELS 120
 
 
-//#define DEBUG 1    //comment this out to remove serial port chatter
+#define DEBUG 1    //comment this out to remove serial port chatter
 
 // Initialisierung der NeoPixel-Bibliothek
 Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
@@ -80,7 +80,7 @@ void loop() {
 
 
   // Setze die LEDs basierend auf der aktuellen Zeit  // this function displays the time
-  setTimeOnLEDs(stunden, minuten, sekunde, 0, 0, 127, 0, 127, 0, 255, 0, 0);  // Blau für Minuten, Grün für Stunden, red for seconds
+  setTimeOnLEDs(stunden, minuten, sekunde, 0, 0, 255, 0, 127, 0, 255, 0, 0);  // Blau für Minuten, Grün für Stunden, red for seconds
   delay(100);  // Warte eine Sekunde bevor der nächste Durchlauf beginnt  // waiting 1/10 second so we can do seconds
 }
 
@@ -90,7 +90,7 @@ void loop() {
  * also a good reason to use ints and not bytes everywhere, so overflow can be handled easily
 */
 int clamp(int num) {
-  num>255 ? return 255 : return num;
+  return (num>255) ? 255 : num;
 }
 
 /* void setTimeOnLEDs(int stunden, int minuten, int sekunde, byte rMinuten, byte gMinuten, byte bMinuten, byte rStunden, byte gStunden, byte bStunden, byte rSekunde, byte gSekunde, byte bSekunde )
@@ -101,7 +101,12 @@ void setTimeOnLEDs(int stunden, int minuten, int sekunde, byte rMinuten, byte gM
   //pixels.clear();  // Schalte alle LEDs aus  //we'll set every LED manually, thankyouverymuch.
 
   #ifdef DEBUG
-    Serial.println("Displaying Time: " + stunden + ":" + minuten + ":" + sekunde);
+    Serial.print("Displaying Time: ");
+    Serial.print(stunden);
+    Serial.print(":");
+    Serial.print(minuten);
+    Serial.print(":");
+    Serial.println(sekunde);
   #endif
  
   //calculate the number of LEDs to light for the hours
@@ -117,7 +122,9 @@ void setTimeOnLEDs(int stunden, int minuten, int sekunde, byte rMinuten, byte gM
     // i = minutes - and also there are 60 LEDs... so that's confusing.  but for this loop: i = minutes = stundenAnzahl positions
     // We'll calculate the LED indices later.
     #ifdef DEBUG
-      Serial.print("LED " + i + ":");
+      Serial.print("LED ");
+      Serial.print(i);
+      Serial.print(": ");
     #endif
 
     //for each pixel - should it turn on?
@@ -147,13 +154,15 @@ void setTimeOnLEDs(int stunden, int minuten, int sekunde, byte rMinuten, byte gM
    
     // set the color on the minute ring
     #ifdef DEBUG
-      Serial.print("Pixel Translation - M: " + ((i+29) % 60) + " ");
+      Serial.print("Pixel Translation - M: ");
+      Serial.print(((i+29) % 60));
     #endif
     pixels.setPixelColor((i+29) % 60, pixels.Color(clamp(rm), clamp(gm), clamp(bm)));
 
     //set the color on the hour ring
     #ifdef DEBUG
-      Serial.println("Pixel Translation - H: " + (((90-i) % 60) + 60));
+      Serial.print(" Pixel Translation - H: ");
+      Serial.println(((90-i) % 60) + 60);
     #endif
     pixels.setPixelColor(((90-i) % 60) + 60, pixels.Color(clamp(rh), clamp(gh), clamp(bh)));
   }
